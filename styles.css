@@ -116,6 +116,7 @@ body {
 /* Panel for selve brettet */
 .board-panel {
   flex: 0 0 auto;
+  border-radius: 16px;
 }
 
 /* Sidepanel med tekst */
