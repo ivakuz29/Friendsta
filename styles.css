@@ -47,7 +47,7 @@ body {
 /* Sidepanelet “Innovation Accounting” */
 .Innovation-container {
   display: grid;               
-  gap: 10px;
+  gap: 30px;
   align-content: start;
   max-width: 320px;
   padding: 14px;
