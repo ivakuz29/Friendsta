@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Playing Lean Board</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" /> <!-- Tegnsett for å støtte spesialtegn -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/> <!-- Gjør siden responsiv -->
+  <title>Playing Lean Board</title> <!-- Tittel som vises i nettleserfanen -->
+  <link rel="stylesheet" href="styles.css" /> <!-- Kobler til ekstern CSS -->
 </head>
+
 <body>
+  <!-- Hovedcontainer: holder både spillebrettet og sidepanelet -->
   <div class="main-container">
+
+    <!-- Selve spillbrettet -->
     <div class="board-panel">
-      <div class="flex_side"></div>
-      <div class="grid-container" id="buttonGrid"></div>
+      <div class="grid-container" id="buttonGrid"></div> <!-- 7x7 rutenett -->
     </div>
 
-    <!-- Sidebar with the words, inside your Innovation-container -->
+    <!-- Sidepanel: Innovation Accounting-informasjon -->
     <aside class="Innovation-container" aria-label="Innovation Accounting">
       <h2>Innovation Accounting</h2>
 
+      <!-- Seksjon for turrekkefølge -->
       <h3>Turn sequence</h3>
       <ol class="rules">
         <li><strong>Accounting phase</strong> – a measurement card is allocated.</li>
@@ -24,19 +28,23 @@
         <li><strong>Action phase</strong> – one by one, players carry out all their planned actions.</li>
       </ol>
 
+      <!-- Seksjon for ansattregler -->
       <h3>Hiring employees</h3>
       <ul class="bullets">
         <li>You gain <strong>1 employee</strong> each for:</li>
         <li>First <strong>green</strong>, <strong>yellow</strong> and <strong>orange</strong> tile.</li>
         <li><strong>4, 7, and 9</strong> customer tiles overall.</li>
       </ul>
-            <footer class="lean-footer">
-    <img src="cropped-cropped-cropped-PL_Logo-1.png" alt="Playing Lean logo" class="lean-logo">
-    <span class="lean-text">Playing Lean 2</span>
+
+      <!-- Footer med logo -->
+      <footer class="lean-footer">
+        <img src="cropped-cropped-cropped-PL_Logo-1.png" alt="Playing Lean logo" class="lean-logo">
+        <span class="lean-text">Playing Lean 2</span>
+      </footer>
     </aside>
-  </footer>
   </div>
 
+  <!-- Kobling til JavaScript-filen -->
   <script src="script.js" defer></script>
 </body>
-
+</html>
