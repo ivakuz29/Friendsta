@@ -1,0 +1,230 @@
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;  
+  align-items: center;     
+  background: #f8fafc; ^
+ 
+}
+
+.main-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+:root {
+  --board-size: clamp(520px, 80vh, 880px); /* scales with screen height */
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  gap: 10px;                   
+  width: var(--board-size);               
+  height: var(--board-size);        
+  padding: 20px;
+     /* keep your border solid black */
+
+  background: #fff;
+}
+
+
+
+.grid-container > button {
+  border: 3px solid black;     /* uniform black outline inside */
+  background: #fff;
+  position: relative;
+  padding-left: 44px;
+  border-radius: 0px;
+  cursor: pointer;
+  transition: transform .15s ease;
+}
+
+
+
+.flex_side
+{
+    display: flex; 
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px;
+  
+}
+
+/* --- Innovation sidebar --- */
+.Innovation-container {
+  display: grid;               /* keep your choice */
+  gap: 10px;
+  align-content: start;
+  max-width: 320px;
+  padding: 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: #111827;
+  
+}
+
+.Innovation-containe h2 {
+  margin: 0 0 6px 0;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.Innovation-container h3 {
+  margin: 8px 0 4px 0;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  color: #374151;
+}
+
+.rules { margin: 0; padding-left: 18px; }
+.rules li { margin: 6px 0; line-height: 1.35; }
+
+.bullets { margin: 0; padding-left: 18px; list-style: none; }
+.bullets li { position: relative; margin: 6px 0; padding-left: 14px; }
+.bullets li::before { content: "•"; position: absolute; left: 0; color: #6b7280; }
+
+
+
+.grid-container > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  font-size: 14px;              /* slightly smaller text */
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .15s ease;
+  color: #111;
+}
+
+.grid-container > button.red {
+  color: #fff;
+}
+
+.grid-container > button:hover {
+  transform: scale(1.05);
+}
+
+/* layout & sidebar remain the same */
+.main-container {
+  display: flex;
+  gap: 20px;
+}
+
+.board-panel {
+  flex: 0 0 auto;
+}
+
+.sidebar {
+  flex: 1 1 auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+/* small owner icon overlay */
+.grid-container > button { position: relative; }
+.owner-badge {
+  position: absolute; top: 3px; left: 3px;
+  width: 14px; height: 14px;
+  pointer-events: none;
+}
+
+/* modal */
+.modal.hidden { display:none; }
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal__dialog {
+  width: 340px;
+  background: #fff;
+  border-radius: 0px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+  overflow: hidden;
+  font-family: system-ui, Arial, sans-serif;
+}
+
+.modal__header,
+.modal__footer {
+  padding: 10px 12px;
+  background: #f7f7f7;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+
+.shapeRow,
+.countsRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+/* smaller icons to match new board scale */
+.shapeIcon {
+  width: 22px;
+  height: 22px;
+}
+
+
+.lean-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 10px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.lean-logo {
+  width: 36px;
+  height: auto;
+  object-fit: contain;
+}
+
+.lean-text {
+  font-weight: 700;
+  font-size: 15px;
+  color: #111827;
+}
+
+.icon-col {
+  position: absolute;
+  left: -6px;                  /* slightly tighter to border */
+  top: 8px;
+  bottom: 8px;
+  width: 30px;                /* gives the column nice width */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;    /* keeps group centered */
+  align-items: center;
+  gap: 10px;                   /* controls vertical spacing */
+  pointer-events: none;       /* prevents blocking clicks */
+}
+
+.icon { pointer-events: none; } 
+
+
+
+
+
