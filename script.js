@@ -81,6 +81,8 @@ for (let i = 0; i < size * size; i++) {
       }
     });
 
+    
+
   
     input.addEventListener("keydown", (e) => {
       if (e.key === "Backspace" && !input.value && index > 0) {
@@ -93,6 +95,13 @@ for (let i = 0; i < size * size; i++) {
       }
     });
   });
+
+  // Når du klikker på en rute, fokuser automatisk på øverste input
+btn.addEventListener("click", () => {
+  const firstInput = btn.querySelector("input");
+  if (firstInput) firstInput.focus();
+});
+
 
   grid.appendChild(btn);
 }
