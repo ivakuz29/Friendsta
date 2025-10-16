@@ -1,17 +1,6 @@
 import React, { useMemo, useState } from "react";
 
-/**
- * InnovationAccountingBoard (single-file React component)
- *
- * What you get:
- * - A configurable grid of tiles (default 9x9) similar to your board.
- * - Each tile shows three shapes stacked vertically: Circle (top), Triangle (middle), Square (bottom).
- * - Numbers sit *inside* each shape. Click to edit.
- * - Left‑click a shape: cycles 0→9 then blank. Right‑click: reverse cycle. Double‑click: open prompt to type a number.
- * - Keyboard input: with a shape selected, press 0–9 to set that value, Backspace to clear.
- * - Quick actions: Reset, Export/Import JSON, Toggle tile labels, Resize grid.
- * - Colors: outer ring = green, middle = yellow, center = red (auto-calculated by distance from center).
- */
+
 
 export default function InnovationAccountingBoard() {
   const [rows, setRows] = useState(9);

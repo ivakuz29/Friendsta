@@ -44,6 +44,11 @@ for (let i = 0; i < size * size; i++) {
       <svg class="icon" viewBox="0 0 100 100"><polygon points="50,0 100,100 0,100"/></svg>
       <svg class="icon" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100"/></svg>
     </div>
+    <div class="input-icon">
+    <input></input>
+    <input></input>
+    <input></input>
+  </div>
   `;
 
   // Legger knappen inn i brettet (DOM-en)

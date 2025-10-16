@@ -47,7 +47,7 @@ body {
 /* Sidepanelet “Innovation Accounting” */
 .Innovation-container {
   display: grid;               
-  gap: 30px;
+  gap: 15px;
   align-content: start;
   max-width: 320px;
   padding: 14px;
@@ -211,7 +211,7 @@ body {
   left: -6px;                  
   top: 8px;
   bottom: 8px;
-  width: 30px;                
+  width: 60%;                
   display: flex;
   flex-direction: column;
   justify-content: center;    
@@ -222,3 +222,25 @@ body {
 
 /* Gjør ikonene ikke-klikkbare */
 .icon { pointer-events: none; } 
+
+input {
+  flex-direction: column;
+  width: 90%;                 /* relative to the tile width */
+  height: 18%;  
+  margin-top: 3px;  
+  margin-bottom: 3px;
+  
+  font-size: clamp(8px, 1.6vh, 12px); /* scales with screen size */
+  text-align: center;
+  border: 1px solid #c8c4c4;
+  border-radius: 3px;
+  padding: 0;
+  outline: none;
+  background: #ffffff;
+  box-sizing: border-box;     /* keeps width consistent */
+  transition: border-color 0.2s ease;
+}
+
+input:focus {
+  border-color: #b77f7f;         /* darker border when selected */
+}
