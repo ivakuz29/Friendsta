@@ -247,63 +247,72 @@ input:focus {
 
 
 /* ===== phones & small tablets ===== */
-/* Make sure the two blocks stack cleanly on mobile */
 @media (max-width: 900px) {
   .main-container {
     flex-direction: column;
-    align-items: center;
+    align-items: center;      /* center both blocks */
     gap: 24px;
   }
 
-  /* Give the board its own layer and some bottom space */
-  .board-panel {
-    position: relative;
-    z-index: 0;
-    margin-bottom: 8px; /* ensures visible gap above the sidebar */
+  /* 1) Make the board smaller on mobile */
+  :root { --board-size: clamp(260px, 78vw, 480px); }
+
+  /* 2) Clip anything that might overflow the board */
+  .board-panel,
+  .grid-container {
+    overflow: hidden;
   }
 
-  /* Lift the sidebar above the board so it never sits "behind" */
+  /* 3) Remove hover zoom on mobile/touch */
+  .grid-container > button:hover {
+    transform: none;
+  }
+
+  /* 5) Give more inner width for icon+inputs when the board is smaller */
+  .grid-container > button {
+    padding-left: 26px;  /* was 44px */
+  }
+
+  /* Sidebar stays centered & on top in stacking order */
   .Innovation-container {
-    position: relative;   /* z-index works only on positioned elements */
-    z-index: 2;
+    position: relative;     /* required for z-index to work */
+    z-index: 1;
     max-width: min(92vw, 420px);
     margin: 0 auto;
   }
 }
 
-/* On touch devices, disable the hover zoom so tiles don't overlay the sidebar */
-@media (hover: none) {
-  .grid-container > button:hover {
-    transform: none;
-  }
-}
-
-/* ===== scale down icons on mobile and keep centered ===== */
-@media (max-width: 900px) {
-  .icon-col {
-    width: 50%;          /* narrower space for icons */
-    gap: 6px;
-    justify-content: center; /* keeps icons vertically centered */
-    align-items: center;
-  }
-
-  .icon {
-    width: 16px;
-    height: 16px;
-  }
-}
-
+/* ===== extra small phones ===== */
 @media (max-width: 600px) {
+  /* 1) Smaller again so inputs stay visible */
+  :root { --board-size: clamp(220px, 86vw, 420px); }
+
+  .grid-container {
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .grid-container > button {
+    padding: 8px;
+    padding-left: 22px;   /* tighter left padding on tiny screens */
+  }
+
+  /* scale down icons so they never crowd inputs */
   .icon-col {
-    left: 0px; 
-    width: 36%;          /* even narrower for small phones */
+    left: 0;
+    width: 36%;
     gap: 5px;
     justify-content: center;
     align-items: center;
   }
-
   .icon {
     width: 13px;
     height: 13px;
   }
 }
+
+/* 3) Also disable hover zoom on devices that don't support hover */
+@media (hover: none) {
+  .grid-container > button:hover { transform: none; }
+}
+
