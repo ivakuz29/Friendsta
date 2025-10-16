@@ -244,3 +244,66 @@ input {
 input:focus {
   border-color: #b77f7f;         /* darker border when selected */
 }
+
+
+/* ===== phones & small tablets ===== */
+/* Make sure the two blocks stack cleanly on mobile */
+@media (max-width: 900px) {
+  .main-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  /* Give the board its own layer and some bottom space */
+  .board-panel {
+    position: relative;
+    z-index: 0;
+    margin-bottom: 8px; /* ensures visible gap above the sidebar */
+  }
+
+  /* Lift the sidebar above the board so it never sits "behind" */
+  .Innovation-container {
+    position: relative;   /* z-index works only on positioned elements */
+    z-index: 2;
+    max-width: min(92vw, 420px);
+    margin: 0 auto;
+  }
+}
+
+/* On touch devices, disable the hover zoom so tiles don't overlay the sidebar */
+@media (hover: none) {
+  .grid-container > button:hover {
+    transform: none;
+  }
+}
+
+/* ===== scale down icons on mobile and keep centered ===== */
+@media (max-width: 900px) {
+  .icon-col {
+    width: 50%;          /* narrower space for icons */
+    gap: 6px;
+    justify-content: center; /* keeps icons vertically centered */
+    align-items: center;
+  }
+
+  .icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .icon-col {
+    left: 0px; 
+    width: 36%;          /* even narrower for small phones */
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .icon {
+    width: 13px;
+    height: 13px;
+  }
+}
