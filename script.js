@@ -97,18 +97,30 @@ document.querySelectorAll(".shapeButtons").forEach(row => {
   });
 });
 
-// save
 saveBtn.addEventListener("click", () => {
   if (!activeBtn) return;
   savedValues[activeIndex] = { ...pendingValues };
   saveBoard();
 
-  activeBtn.querySelector(".circle-val").textContent = pendingValues.circle;
-  activeBtn.querySelector(".triangle-val").textContent = pendingValues.triangle;
-  activeBtn.querySelector(".square-val").textContent = pendingValues.square;
+  // update text + visibility
+  const circleEl = activeBtn.querySelector(".circle-val");
+  const triEl = activeBtn.querySelector(".triangle-val");
+  const sqEl = activeBtn.querySelector(".square-val");
+
+  [circleEl, triEl, sqEl].forEach((el, i) => {
+    const val = Object.values(pendingValues)[i];
+    if (val && val !== "-" && val !== "0") {
+      el.textContent = val;
+      el.classList.add("active");
+    } else {
+      el.textContent = "";
+      el.classList.remove("active");
+    }
+  });
 
   closePopup();
 });
+
 
 // cancel
 cancelBtn.addEventListener("click", closePopup);
@@ -118,3 +130,24 @@ function closePopup() {
   activeBtn = null;
   activeIndex = null;
 }
+
+// === CLEAR ALL FUNCTIONALITY ===
+const clearAllBtn = document.getElementById("clearAllBtn");
+const confirmPopup = document.getElementById("confirmReset");
+const cancelReset = document.getElementById("cancelReset");
+const confirmResetBtn = document.getElementById("confirmResetBtn");
+
+clearAllBtn.addEventListener("click", () => {
+  confirmPopup.classList.remove("hidden");
+});
+
+cancelReset.addEventListener("click", () => {
+  confirmPopup.classList.add("hidden");
+});
+
+confirmResetBtn.addEventListener("click", () => {
+  localStorage.removeItem("boardValues");
+  confirmPopup.classList.add("hidden");
+  window.location.reload(); // reload the board cleanly
+});
+
