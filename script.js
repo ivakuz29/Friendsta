@@ -45,11 +45,28 @@ for (let i = 0; i < size * size; i++) {
     </div>
   `;
 
-  if (savedValues[i]) {
-    btn.querySelector(".circle-val").textContent = savedValues[i].circle || "-";
-    btn.querySelector(".triangle-val").textContent = savedValues[i].triangle || "-";
-    btn.querySelector(".square-val").textContent = savedValues[i].square || "-";
+// Apply saved values + visibility if they exist
+if (savedValues[i]) {
+  const circleEl = btn.querySelector(".circle-val");
+  const triEl = btn.querySelector(".triangle-val");
+  const sqEl = btn.querySelector(".square-val");
+
+  const vals = savedValues[i];
+
+  if (vals.circle && vals.circle !== "-" && vals.circle !== "0") {
+    circleEl.textContent = vals.circle;
+    circleEl.classList.add("active");
   }
+  if (vals.triangle && vals.triangle !== "-" && vals.triangle !== "0") {
+    triEl.textContent = vals.triangle;
+    triEl.classList.add("active");
+  }
+  if (vals.square && vals.square !== "-" && vals.square !== "0") {
+    sqEl.textContent = vals.square;
+    sqEl.classList.add("active");
+  }
+}
+
 
   btn.addEventListener("click", () => openPopup(i, btn));
   grid.appendChild(btn);
