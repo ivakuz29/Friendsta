@@ -6,13 +6,12 @@ const size = 7;
 
 // Farger for de forskjellige "ringene" på brettet
 const COLORS = {
-  green: "#2ea44f",   // ytterste ring
-  yellow: "#f2c230",  // andre ring
-  orange: "#e67e22",  // tredje ring
-  red: "#c0392b"      // midten
+  green: "#2ea44f",
+  yellow: "#f2c230",
+  orange: "#e67e22",
+  red: "#c0392b"
 };
 
-// Hent lagrede data fra localStorage (eller lag tom array)
 let savedValues = JSON.parse(localStorage.getItem("boardValues")) || {};
 
 // Funksjon for å lagre hele brettet til localStorage
@@ -20,27 +19,19 @@ function saveBoard() {
   localStorage.setItem("boardValues", JSON.stringify(savedValues));
 }
 
-// Opprett 49 (7x7) knapper på brettet
+// === Opprett ruter (7x7) ===
 for (let i = 0; i < size * size; i++) {
   const btn = document.createElement("button");
   const row = Math.floor(i / size);
   const col = i % size;
-
-  // Beregner avstanden fra midten (3,3)
   const d = Math.max(Math.abs(row - 3), Math.abs(col - 3));
 
-  // Setter farge og kant etter hvilken ring knappen tilhører
-  if (d === 3) {
-    btn.style.border = `4px solid ${COLORS.green}`;
-  } else if (d === 2) {
-    btn.style.border = `4px solid ${COLORS.yellow}`;
-  } else if (d === 1) {
-    btn.style.border = `4px solid ${COLORS.orange}`;
-  } else {
-    btn.style.border = `4px solid ${COLORS.red}`;
-  }
+  if (d === 3) btn.style.border = `4px solid ${COLORS.green}`;
+  else if (d === 2) btn.style.border = `4px solid ${COLORS.yellow}`;
+  else if (d === 1) btn.style.border = `4px solid ${COLORS.orange}`;
+  else btn.style.border = `4px solid ${COLORS.red}`;
 
-  // Legger til formene (sirkel, trekant og firkant) inni knappen
+  // Lag ikoner og placeholders
   btn.innerHTML = `
     <div class="icon-col">
       <svg class="icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
@@ -48,60 +39,82 @@ for (let i = 0; i < size * size; i++) {
       <svg class="icon" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100"/></svg>
     </div>
     <div class="input-icon">
-      <input maxlength="1">
-      <input maxlength="1">
-      <input maxlength="1">
+      <div class="chosen-number circle-val">-</div>
+      <div class="chosen-number triangle-val">-</div>
+      <div class="chosen-number square-val">-</div>
     </div>
   `;
 
-  const inputs = btn.querySelectorAll("input");
+  if (savedValues[i]) {
+    btn.querySelector(".circle-val").textContent = savedValues[i].circle || "-";
+    btn.querySelector(".triangle-val").textContent = savedValues[i].triangle || "-";
+    btn.querySelector(".square-val").textContent = savedValues[i].square || "-";
+  }
 
-  inputs.forEach((input, index) => {
-    const key = `${i}-${index}`; // unik ID for hver rute og hvert felt
+  btn.addEventListener("click", () => openPopup(i, btn));
+  grid.appendChild(btn);
+}
 
-    // Sett lagret verdi om den finnes
-    if (savedValues[key]) input.value = savedValues[key];
+// === POPUP LOGIC (new version with all shapes visible) ===
+let activeBtn = null;
+let activeIndex = null;
+let pendingValues = { circle: "-", triangle: "-", square: "-" };
 
+// references
+const popup = document.getElementById("popup");
+const saveBtn = document.getElementById("popupSave");
+const cancelBtn = document.getElementById("popupCancel");
 
-    input.addEventListener("input", (e) => {
-      const value = e.target.value.replace(/\D/g, ""); // kun tall
-      e.target.value = value;
+// click cube -> open popup
+function openPopup(index, button) {
+  activeBtn = button;
+  activeIndex = index;
 
-    
-      if (value) {
-        savedValues[key] = value;
-      } else {
-        delete savedValues[key];
-      }
-      saveBoard();
+  // load saved or default
+  const saved = savedValues[index] || { circle: "0", triangle: "0", square: "0" };
+  pendingValues = { ...saved };
 
-
-      if (value && index < inputs.length - 1) {
-        inputs[index + 1].focus();
-      }
-    });
-
-    
-
-  
-    input.addEventListener("keydown", (e) => {
-      if (e.key === "Backspace" && !input.value && index > 0) {
-  
-        inputs[index - 1].focus();
-        inputs[index - 1].value = "";
-        delete savedValues[`${i}-${index - 1}`];
-        saveBoard();
-        e.preventDefault();
-      }
+  // reset buttons
+  document.querySelectorAll(".shapeButtons").forEach(row => {
+    const shape = row.dataset.shape;
+    row.querySelectorAll(".num-btn").forEach(btn => {
+      btn.classList.toggle("selected", btn.textContent === pendingValues[shape]);
     });
   });
 
-  // Når du klikker på en rute, fokuser automatisk på øverste input
-btn.addEventListener("click", () => {
-  const firstInput = btn.querySelector("input");
-  if (firstInput) firstInput.focus();
+  popup.classList.remove("hidden");
+}
+
+// number selection
+document.querySelectorAll(".shapeButtons").forEach(row => {
+  const shape = row.dataset.shape;
+  row.querySelectorAll(".num-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      row.querySelectorAll(".num-btn").forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected");
+      pendingValues[shape] = btn.textContent;
+    });
+  });
 });
 
+// save
+saveBtn.addEventListener("click", () => {
+  if (!activeBtn) return;
+  savedValues[activeIndex] = { ...pendingValues };
+  saveBoard();
 
-  grid.appendChild(btn);
+  activeBtn.querySelector(".circle-val").textContent = pendingValues.circle;
+  activeBtn.querySelector(".triangle-val").textContent = pendingValues.triangle;
+  activeBtn.querySelector(".square-val").textContent = pendingValues.square;
+
+  closePopup();
+});
+
+// cancel
+cancelBtn.addEventListener("click", closePopup);
+
+function closePopup() {
+  popup.classList.add("hidden");
+  activeBtn = null;
+  activeIndex = null;
 }

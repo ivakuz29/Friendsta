@@ -117,6 +117,7 @@ body {
 .board-panel {
   flex: 0 0 auto;
   border-radius: 16px;
+  
 }
 
 /* Sidepanel med tekst */
@@ -156,31 +157,9 @@ body {
   font-family: system-ui, Arial, sans-serif;
 }
 
-/* Header og footer i modalen */
-.modal__header,
-.modal__footer {
-  padding: 10px 12px;
-  background: #f7f7f7;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
 
-/* Radoppsett for små elementer i modalen */
-.shapeRow,
-.countsRow {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 8px;
-}
 
-/* Ikonstørrelse i modalen */
-.shapeIcon {
-  width: 22px;
-  height: 22px;
-}
+
 
 /* Footer (Playing Lean-logo og tekst) */
 .lean-footer {
@@ -222,28 +201,6 @@ body {
 
 /* Gjør ikonene ikke-klikkbare */
 .icon { pointer-events: none; } 
-
-input {
-  flex-direction: column;
-  width: 90%;                 /* relative to the tile width */
-  height: 18%;  
-  margin-top: 3px;  
-  margin-bottom: 3px;
-  
-  font-size: clamp(8px, 1.6vh, 12px); /* scales with screen size */
-  text-align: center;
-  border: 1px solid #c8c4c4;
-  border-radius: 3px;
-  padding: 0;
-  outline: none;
-  background: #ffffff;
-  box-sizing: border-box;     /* keeps width consistent */
-  transition: border-color 0.2s ease;
-}
-
-input:focus {
-  border-color: #b77f7f;         /* darker border when selected */
-}
 
 
 /* ===== phones & small tablets ===== */
@@ -316,3 +273,114 @@ input:focus {
   .grid-container > button:hover { transform: none; }
 }
 
+.popup-numbers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.num-btn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.num-btn.selected {
+  background: #16a34a;
+  color: white;
+}
+
+.popup-numbers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.num-btn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.num-btn.selected {
+  background: #16a34a;
+  color: white;
+}
+
+.chosen-number {
+  font-size: 14px;
+  font-weight: bold;
+  color: #111;
+  text-align: center;
+}
+
+.shapeRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 12px 0;
+  flex-wrap: wrap;
+}
+
+.shapeLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 90px;
+  font-weight: 600;
+}
+
+.shapeButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.num-btn {
+  width: 34px;
+  height: 34px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  background: #fff;
+}
+
+.num-btn.selected {
+  background: #16a34a;
+  color: white;
+  border-color: #16a34a;
+}
+
+.shapeIcon {
+  width: 18px;
+  height: 18px;
+}
+
+.btn {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 6px 14px;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: #16a34a;
+  color: white;
+  border-color: #16a34a;
+}
