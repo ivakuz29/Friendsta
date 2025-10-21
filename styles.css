@@ -347,6 +347,7 @@ body {
   gap: 8px;
   min-width: 90px;
   font-weight: 600;
+  margin-bottom: 10px;
 }
 
 .shapeButtons {
