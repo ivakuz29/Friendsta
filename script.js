@@ -12,6 +12,7 @@ const COLORS = {
   red: "#c0392b"
 };
 
+// Hent lagrede data fra localStorage (eller lag tom array)
 let savedValues = JSON.parse(localStorage.getItem("boardValues")) || {};
 
 // Funksjon for å lagre hele brettet til localStorage
@@ -31,7 +32,7 @@ for (let i = 0; i < size * size; i++) {
   else if (d === 1) btn.style.border = `4px solid ${COLORS.orange}`;
   else btn.style.border = `4px solid ${COLORS.red}`;
 
-  // Lag ikoner og placeholders
+  // Legger til formene og plassholderne
   btn.innerHTML = `
     <div class="icon-col">
       <svg class="icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
@@ -45,53 +46,51 @@ for (let i = 0; i < size * size; i++) {
     </div>
   `;
 
-// Apply saved values + visibility if they exist
-if (savedValues[i]) {
-  const circleEl = btn.querySelector(".circle-val");
-  const triEl = btn.querySelector(".triangle-val");
-  const sqEl = btn.querySelector(".square-val");
+  // Hent lagrede verdier
+  if (savedValues[i]) {
+    const circleEl = btn.querySelector(".circle-val");
+    const triEl = btn.querySelector(".triangle-val");
+    const sqEl = btn.querySelector(".square-val");
 
-  const vals = savedValues[i];
+    const vals = savedValues[i];
 
-  if (vals.circle && vals.circle !== "-" && vals.circle !== "0") {
-    circleEl.textContent = vals.circle;
-    circleEl.classList.add("active");
+    if (vals.circle && vals.circle !== "-") {
+      circleEl.textContent = vals.circle;
+      circleEl.classList.add("active");
+    }
+    if (vals.triangle && vals.triangle !== "-") {
+      triEl.textContent = vals.triangle;
+      triEl.classList.add("active");
+    }
+    if (vals.square && vals.square !== "-") {
+      sqEl.textContent = vals.square;
+      sqEl.classList.add("active");
+    }
   }
-  if (vals.triangle && vals.triangle !== "-" && vals.triangle !== "0") {
-    triEl.textContent = vals.triangle;
-    triEl.classList.add("active");
-  }
-  if (vals.square && vals.square !== "-" && vals.square !== "0") {
-    sqEl.textContent = vals.square;
-    sqEl.classList.add("active");
-  }
-}
-
 
   btn.addEventListener("click", () => openPopup(i, btn));
   grid.appendChild(btn);
 }
 
-// === POPUP LOGIC (new version with all shapes visible) ===
+// === POPUP LOGIC ===
 let activeBtn = null;
 let activeIndex = null;
 let pendingValues = { circle: "-", triangle: "-", square: "-" };
 
-// references
+// referanser
 const popup = document.getElementById("popup");
 const saveBtn = document.getElementById("popupSave");
 const cancelBtn = document.getElementById("popupCancel");
 
-// click cube -> open popup
+// Åpne popup når en rute klikkes
 function openPopup(index, button) {
   activeBtn = button;
   activeIndex = index;
 
-  // load saved or default
   const saved = savedValues[index] || { circle: "0", triangle: "0", square: "0" };
   pendingValues = { ...saved };
 
-  // reset buttons
+  // Oppdater knappene i popupen
   document.querySelectorAll(".shapeButtons").forEach(row => {
     const shape = row.dataset.shape;
     row.querySelectorAll(".num-btn").forEach(btn => {
@@ -102,7 +101,7 @@ function openPopup(index, button) {
   popup.classList.remove("hidden");
 }
 
-// number selection
+// Tallvalg i popup
 document.querySelectorAll(".shapeButtons").forEach(row => {
   const shape = row.dataset.shape;
   row.querySelectorAll(".num-btn").forEach(btn => {
@@ -114,19 +113,20 @@ document.querySelectorAll(".shapeButtons").forEach(row => {
   });
 });
 
+// Lagre knapp i popup
 saveBtn.addEventListener("click", () => {
   if (!activeBtn) return;
   savedValues[activeIndex] = { ...pendingValues };
   saveBoard();
 
-  // update text + visibility
+  // Oppdater visning
   const circleEl = activeBtn.querySelector(".circle-val");
   const triEl = activeBtn.querySelector(".triangle-val");
   const sqEl = activeBtn.querySelector(".square-val");
 
   [circleEl, triEl, sqEl].forEach((el, i) => {
     const val = Object.values(pendingValues)[i];
-    if (val && val !== "-" && val !== "0") {
+    if (val && val !== "-") {
       el.textContent = val;
       el.classList.add("active");
     } else {
@@ -138,8 +138,7 @@ saveBtn.addEventListener("click", () => {
   closePopup();
 });
 
-
-// cancel
+// Avbryt knapp
 cancelBtn.addEventListener("click", closePopup);
 
 function closePopup() {
@@ -148,7 +147,7 @@ function closePopup() {
   activeIndex = null;
 }
 
-// === CLEAR ALL FUNCTIONALITY ===
+// === CLEAR ALL FUNKSJON ===
 const clearAllBtn = document.getElementById("clearAllBtn");
 const confirmPopup = document.getElementById("confirmReset");
 const cancelReset = document.getElementById("cancelReset");
@@ -165,6 +164,5 @@ cancelReset.addEventListener("click", () => {
 confirmResetBtn.addEventListener("click", () => {
   localStorage.removeItem("boardValues");
   confirmPopup.classList.add("hidden");
-  window.location.reload(); // reload the board cleanly
+  window.location.reload();
 });
-
