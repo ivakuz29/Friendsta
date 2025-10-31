@@ -392,3 +392,56 @@ body {
   color: white;
   border-color: #16a34a;
 }
+
+/* === existing styles from your file remain unchanged above === */
+
+/* Visual: when a rute is marked sold/lost, fill background */
+.cube { transition: background 0.25s ease, color 0.25s ease; }
+.cube-sold { background: rgba(46,164,79,0.88); color: #fff; }
+.cube-lost { background: rgba(192,57,43,0.9); color: #fff; }
+
+/* Make the inline SVGs follow currentColor so they invert nicely */
+.icon { width: 18px; height: 18px; fill: currentColor; }
+
+/* Badge in the corner */
+.status-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 6px;
+  line-height: 1;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  pointer-events: none;
+}
+.status-badge.hidden { display: none; }
+
+/* Popup button highlights */
+.statusButtons { display: flex; gap: 6px; flex-wrap: wrap; }
+.status-btn {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 6px 10px;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+.status-btn.selected {
+  outline: 2px solid #16a34a;
+  border-color: #16a34a;
+}
+
+/* number buttons already exist, ensure selection style is consistent */
+.num-btn.selected {
+  background: #16a34a;
+  color: #fff;
+  border-color: #16a34a;
+}
+
+/* Ensure chosen-number becomes visible when active */
+.chosen-number { visibility: hidden; }
+.chosen-number.active { visibility: visible; }
+
